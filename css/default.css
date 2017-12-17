@@ -1,1 +1,10 @@
-html,body,.site-flex{height:100%;}body{font-family:Verdana, Tahoma, Arial, sans-serif;font-size:11px;background-color:#f0f0f0;margin:0;padding:0;}.flex{display:flex;}.sidebar{width:200px;background-color:#383B42}.sidebar h2{text-align:center;font-weight:normal;color:#f6f6ef;line-height:40px;margin:0;font-size:18px;letter-spacing:2px;background-color:#34363a;border-bottom:1px solid rgba(101,116,134,0.57);}.sidebar ul{list-style:none;margin:0;padding:0;}.sidebar li{border-bottom:1px solid #42454d;padding-left:48px;border-top:1px solid #2e3036;}.sidebar li a{color:#b3b3b3;display:block;text-decoration:none;line-height:30px;position:relative;letter-spacing:1px;font-size:14px;}.sidebar li a:before{content:"\f03a";font-family:FontAwesome;position:absolute;left:-25px}.sidebar li.home a:before{content:"\f015";}.main{flex:auto;}.topbar{background-color:#FFFFFF;border-bottom:1px solid #c0c1c0;height:40px;}
+body {
+	font-family: Verdana, Tahoma, Arial, sans-serif;
+	font-size: 11px;
+	background-color: #f0f0f0;
+	margin: 0;
+	padding: 0;
+}
+#wrapper {
+	background-color: #FFFFFF;
+}
