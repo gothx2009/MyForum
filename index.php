@@ -2,8 +2,8 @@
 	define("MYFORUM", true);
 	include("inc/config.php");
 	include("inc/class.display.php");
-	$db = new mysqli($sql['hostname'],$sql['username'],$sql['password'],$sql['database']);
 	$display = new Display;
+	$db = new mysqli($sql['hostname'],$sql['username'],$sql['password'],$sql['database']);
 	$display->output();
 ?>
 

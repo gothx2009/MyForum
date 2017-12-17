@@ -13,6 +13,8 @@
 			$html .= "</head><body><div id='wrapper'>";
 			// Logostrip
 			$html .= "<div id='logostrip'>". $board['name'] ."</div>";
+			// Menu
+			$html .= "<ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul>";
 			echo $html;
 		}
 	}

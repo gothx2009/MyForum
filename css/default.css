@@ -17,3 +17,24 @@ body {
 	padding: 10px 0;
 	text-align: center;
 }
+.topmenu {
+	border: 1px solid #DDDDDD;
+	border-left: 0;
+	border-right: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.topmenu li {
+	display: inline-block;
+	padding: 5px 0;
+}
+.topmenu li a {
+	color: #000000;
+	font-weight: bold;
+	text-decoration: none;
+}
+.topmenu li a:hover {
+	text-decoration: underline;
+}
