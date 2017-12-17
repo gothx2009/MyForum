@@ -2,10 +2,13 @@
 	if(!defined("MYFORUM")) {
 		die("Direct initialization of this file is not allowed.");
 	}
-  $sql = array();
+	$sql = array();
+	$board = array();
   
-  $sql['hostname'] = "localhost";
-  $sql['username'] = "root";
-  $sql['password'] = "";
-  $sql['database'] = "myforum";
+	$sql['hostname'] = "localhost";
+	$sql['username'] = "root";
+	$sql['password'] = "";
+	$sql['database'] = "myforum";
+	
+	$board["name"] = "MyForum";
 ?>
