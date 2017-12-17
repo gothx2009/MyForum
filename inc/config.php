@@ -1,4 +1,7 @@
 <?php
+	if(!defined("MYFORUM")) {
+		die("Direct initialization of this file is not allowed.");
+	}
   $sql = array();
   
   $sql['hostname'] = "localhost";
