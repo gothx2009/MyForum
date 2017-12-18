@@ -95,3 +95,18 @@ td {
 	color: #F00;
 	font-weight: bold;
 }
+.pagination {
+	background-color: #EFEFEF;
+	border: 1px solid #DDDDDD;
+	margin: 0 0 10px;
+}
+.pagination ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.pagination li {
+	border-right: 1px solid #DDD;
+	display: inline-block;
+	padding: 5px;
+}

@@ -10,6 +10,7 @@
 	$sql['password'] = "";
 	$sql['database'] = "myforum";
 	
-	$board["name"] = "MyForum";
-	$board["showversion"] = 1;
+	$board["name"] 			 = "MyForum";
+	$board["showversion"]	 = 1;
+	$board["posts_per_page"] = 15;
 ?>
