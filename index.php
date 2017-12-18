@@ -5,6 +5,9 @@
 	$display = new Display;
 	$db = new mysqli($sql['hostname'],$sql['username'],$sql['password'],$sql['database']);
 	$db->query("CREATE TABLE IF NOT EXISTS t(i INT AUTO_INCREMENT, a INT, b TEXT, KEY(i))");
+	$db->query("ALTER TABLE `t` ADD PRIMARY KEY(`i`);");
+	$db->query("ALTER TABLE `t` DROP INDEX `i`;");
+	$db->query("ALTER TABLE `t` CHANGE `a` `pinned` INT(1) NOT NULL DEFAULT '0';");
 	$db->query("CREATE TABLE IF NOT EXISTS p(i INT AUTO_INCREMENT, a INT, b TEXT, KEY(i))");
 	$act = isset($_GET['act']) ? $_GET['act'] : false;
 	switch($act) {
