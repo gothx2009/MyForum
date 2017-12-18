@@ -25,7 +25,7 @@
 			if(isset($_GET['id'])) {
 				$html .= "<input type='hidden' name='tid' value='".intval($_GET['id'])."'>";
 			}
-			$html .= "<div class='maintitle'>Post ".$this->ptitle."</div><table>";
+			$html .= "<div class='maintitle'>Post ".$this->ptitle."</div><table><tr><td>Display Name:<br /><em>Optional</em></td><td><input type='text' name='aname'></td></tr>";
 			if($this->ptitle == "Topic") {
 				$html .= "<tr><td>Topic Title:</td><td><input type='text' name='ttitle'></td></tr>";
 			}

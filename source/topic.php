@@ -19,7 +19,7 @@
 	$display->to_output .= "<div class='category'><div class='maintitle'>".$topic->title."</div><table>";
 	if($result = $db->query("SELECT * FROM p WHERE parent='".$id."'")) {
 		while($row = $result->fetch_object()) {
-			$display->to_output .= "<tr><td>".$row->content."</td></tr>";
+			$display->to_output .= "<tr><td>".$row->aname."</td><td>".$row->content."</td></tr>";
 		}
 	}
 	$display->to_output .= "</table></div>";
