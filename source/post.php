@@ -18,7 +18,7 @@
 		$db->query($sql);
 		$topicID = $db->insert_id;
 	}
-	$sql = "INSERT INTO p(parent,aname,content) VALUES ('".$topicID."','".$authorname."','".$db->real_escape_string($content)."');";
+	$sql = "INSERT INTO p(parent,aname,aemail,content) VALUES ('".$topicID."','".$authorname."','".$email."','".$db->real_escape_string($content)."');";
 	$db->query($sql);
 	header("Location: ./index.php?showtopic=".$topicID);
 	exit;
