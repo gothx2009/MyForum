@@ -1,5 +1,6 @@
 <?php
 	class ShowTopic {
+		var $first = true;
 		var $id;
 		var $offset;
 		var $page;
@@ -21,6 +22,7 @@
 			if($result = $db->query("SELECT * FROM p WHERE parent='". $this->id ."' ORDER BY i ASC LIMIT ". $this->offset .", ". $board['posts_per_page'])) {
 				while($row = $result->fetch_object()) {
 					$this->show_post($row);
+					$this->first = false;
 				}
 			}
 			$this->end_topic();
@@ -80,8 +82,13 @@
 		}
 		function show_post($post) {
 			global $display;
-			$html = "<tr><td>". $post->aname ."</td><td class='post'>";
-			$html .= "<div class='actions'><a href='./index.php?act=pin&c=1&i=". $post->i ."'><i class='fa fa-times-circle'></i></a></div>";
+			$html = "<tr><td>". $post->aname ."</td><td class='post'><div class='actions'>";
+			if($this->first) {
+				$html .= "<a href='./index.php?act=pin&c=2&i=". $this->id ."'>";
+			} else {
+				$html .= "<a href='./index.php?act=pin&c=1&i=". $post->i ."'>";
+			}
+			$html .= "<i class='fa fa-times-circle'></i></a></div>";
 			$html .= $post->content ."</td></tr>";
 			$display->to_output .= $html;
 		}

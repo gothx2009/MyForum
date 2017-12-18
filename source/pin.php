@@ -26,10 +26,11 @@
 			}
 		}
 		function delete_post($id) {
-			global $db;
+			global $db, $display;
 			$sql = "DELETE FROM p WHERE i='". $id ."'";
 			if($result = $db->query($sql)) {
-				
+				$display->crumbs[] = "Post Deleted";
+				$_SESSION['error'] = array("success", "Your post has been deleted.");
 			}
 		}
 		function show_pin_form() {
