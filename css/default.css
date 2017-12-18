@@ -110,3 +110,6 @@ td {
 	display: inline-block;
 	padding: 5px;
 }
+
+.ava { width: 1%; }
+.ava img { width: 35px; }
