@@ -55,6 +55,9 @@ a:hover {
 .crumbs {
 	margin: 0 0 10px;
 }
+.category {
+	margin: 0 0 10px;
+}
 .maintitle {
 	background-color: #EFEFEF;
 	border: 1px solid #DDDDDD;

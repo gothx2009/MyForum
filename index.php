@@ -54,11 +54,6 @@
 			echo'<hr/>'.nl2br($h($r[2]));
 		}
 	}else{
-		$t=$q("$s t$l-i");
-		for(;$i<$n($t);++$i){
-			$r=$f($t);
-			echo'<a href="./?v='.$r[0].'">'.$h($r[2]).'</a><br/>';
-		}
 		$o='Title:'.$x.'text"name="e"/><br/>';
 	}
 	echo'<hr/>Post:<form action="./"method="post">'.$x.'hidden"name="v"value="'."$v\"/>$o<textarea name=\"b\"></textarea>$x";
