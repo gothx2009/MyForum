@@ -17,6 +17,7 @@
 
 <?php
 	$v = false;
+	$b = false;
 	extract($_REQUEST);
 	$v=intval($v);
 	$i=0;

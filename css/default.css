@@ -5,6 +5,13 @@ body {
 	margin: 0;
 	padding: 0;
 }
+a {
+	color: blue;
+	text-decoration: none;
+}
+a:hover {
+	color: cadetblue;
+}
 #wrapper {
 	margin: 20px;
 }
@@ -37,4 +44,22 @@ body {
 }
 .topmenu li a:hover {
 	text-decoration: underline;
+}
+#main {
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-bottom: 0;
+	border-top: 0;
+	padding: 5px;
+}
+.crumbs {
+	margin: 0 0 10px;
+}
+.maintitle {
+	background-color: #EFEFEF;
+	border: 1px solid #DDDDDD;
+	border-bottom: 0;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 3px 5px;
 }
