@@ -8,14 +8,15 @@
 		} else {
 		}
 	}
-	$topicID = 0;
-	if(!$myforum->in_forum) {
-		$title = isset($_POST['ttitle']) ? $db->real_escape_string($_POST['ttitle']) : false;
+	$topicID = isset($_POST['tid']) ? $_POST['tid'] : false;
+	$title = isset($_POST['ttitle']) ? $db->real_escape_string($_POST['ttitle']) : false;
+	if($title) {
 		$sql = "INSERT INTO t(pinned,title) VALUES (0,'".$title."');";
 		$db->query($sql);
 		$topicID = $db->insert_id;
 	}
-	$sql = "INSERT INTO p(parent,text) VALUES ('".$topicID."','".$db->real_escape_string($content)."');";
+	$sql = "INSERT INTO p(parent,content) VALUES ('".$topicID."','".$db->real_escape_string($content)."');";
+	$db->query($sql);
 	header("Location: ./index.php?showtopic=".$topicID);
 	exit;
 ?>

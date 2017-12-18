@@ -29,6 +29,7 @@
 			include("source/post.php");
 			break;
 		case "ST":
+			include("source/topic.php");
 			break;
 		default:
 			include("source/idx.php");
