@@ -80,7 +80,9 @@
 		}
 		function show_post($post) {
 			global $display;
-			$html = "<tr><td>". $post->aname ."</td><td>". $post->content ."</td></tr>";
+			$html = "<tr><td>". $post->aname ."</td><td class='post'>";
+			$html .= "<div class='actions'><a href='./index.php?act=pin&c=1&i=". $post->i ."'><i class='fa fa-times-circle'></i></a></div>";
+			$html .= $post->content ."</td></tr>";
 			$display->to_output .= $html;
 		}
 		function start_topic() {

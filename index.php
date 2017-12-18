@@ -20,6 +20,9 @@
 		$_GET['id'] = $_GET['showtopic'];
 	}
 	switch($act) {
+		case "pin":
+			include("source/pin.php");
+			break;
 		case "post":
 			include("source/post.php");
 			break;
