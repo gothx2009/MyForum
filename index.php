@@ -35,34 +35,3 @@
 	}
 	$display->output();
 ?>
-
-<?php
-	$v = false;
-	$b = false;
-	extract($_REQUEST);
-	$v=intval($v);
-	$i=0;
-	$q='mysql_query';
-	$f='mysql_fetch_row';
-	$n='mysql_num_rows';
-	$x='<input type="';
-	$s="SELECT*FROM";
-	$h='htmlspecialchars';
-	$l=' ORDER BY';
-	$o='';
-	$u='INSERT INTO';
-	$c="b)VALUES('";
-	if($b){
-		if(!$v)$q("$u t($c$e')");
-		$v=max($v,mysql_insert_id());
-		$q("$u p(a,$c$v','$b')");
-	}
-	if($v){
-		$t=$q("$s p WHERE a=$v$l i");
-		echo'<a href="./">Back</a>';
-		for(;$i<$n($t);++$i){
-			$r=$f($t);
-			echo'<hr/>'.nl2br($h($r[2]));
-		}
-	}
-?></body></html>
