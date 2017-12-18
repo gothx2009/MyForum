@@ -63,3 +63,12 @@ a:hover {
 	font-weight: bold;
 	padding: 3px 5px;
 }
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+th {
+	border: 1px solid #DDDDDD;
+	padding: 3px 5px;
+	text-align: left;
+}
