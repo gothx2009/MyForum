@@ -11,4 +11,5 @@
 	$sql['database'] = "myforum";
 	
 	$board["name"] = "MyForum";
+	$board["showversion"] = 1;
 ?>

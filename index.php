@@ -1,7 +1,9 @@
 <?php
 	define("MYFORUM", true);
 	include("inc/config.php");
+	include("inc/class.myforum.php");
 	include("inc/class.display.php");
+	$myforum = new MyForum;
 	$display = new Display;
 	$db = new mysqli($sql['hostname'],$sql['username'],$sql['password'],$sql['database']);
 	$db->query("CREATE TABLE IF NOT EXISTS t(i INT AUTO_INCREMENT, a INT, b TEXT, KEY(i))");
@@ -53,8 +55,5 @@
 			$r=$f($t);
 			echo'<hr/>'.nl2br($h($r[2]));
 		}
-	}else{
-		$o='Title:'.$x.'text"name="e"/><br/>';
 	}
-	echo'<hr/>Post:<form action="./"method="post">'.$x.'hidden"name="v"value="'."$v\"/>$o<textarea name=\"b\"></textarea>$x";
-?>submit"name="w"value="Post"/></form></body></html>
+?></body></html>

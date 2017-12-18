@@ -79,3 +79,7 @@ td {
 	border: 1px solid #DDDDDD;
 	padding: 3px 5px;
 }
+#copyright {
+	padding: 10px 0;
+	text-align: center;
+}

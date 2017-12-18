@@ -4,7 +4,7 @@
 		var $ptitle = "Topic";
 		var $to_output;
 		function output() {
-			global $board;
+			global $board, $myforum;
 			$html  = "<!DOCTYPE html><html lang='en'><head>";
 			$html .= "<meta charset='utf-8'>";
 			$html .= "<title>". $board['name'] ."</title>";
@@ -17,11 +17,18 @@
 			$html .= implode(" / ", $this->crumbs);
 			$html .= "</div>";
 			$html .= $this->to_output;
-			$html .= "<div class='category'><form method='post'><div class='maintitle'>Post ".$this->ptitle."</div><table>";
+			$html .= "<div class='category'><form method='post' action='index.php?act=post'><div class='maintitle'>Post ".$this->ptitle."</div><table>";
 			if($this->ptitle == "Topic") {
-				$html .= "<tr><td>Topic Title:</td><td></td></tr>";
+				$html .= "<tr><td>Topic Title:</td><td><input type='text' name='ttitle'></td></tr>";
 			}
-			$html .= "<tr><td></td><td></td></tr></table></form></div>";
+			$html .= "<tr><td>Post Content:</td><td><textarea name='pcontent'></textarea></td></tr><tr><td colspan='2'><input type='submit' value='Post'></td></tr></table></form></div>";
+			$html .= "";
+			$html .= "<div id='copyright'>Powered by <a href='http://mlutz.us'>MyForum</a>";
+			if($board["showversion"]) {
+				$html .= " (v".$myforum->version.")";
+			}
+			$html .= ".</div>";
+			$html .= "</div></div></body></html>";
 			echo $html;
 		}
 	}
