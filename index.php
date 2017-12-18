@@ -8,9 +8,16 @@
 	$db->query("ALTER TABLE `t` ADD PRIMARY KEY(`i`);");
 	$db->query("ALTER TABLE `t` DROP INDEX `i`;");
 	$db->query("ALTER TABLE `t` CHANGE `a` `pinned` INT(1) NOT NULL DEFAULT '0';");
+	$db->query("ALTER TABLE `t` CHANGE `b` `title` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;");
 	$db->query("CREATE TABLE IF NOT EXISTS p(i INT AUTO_INCREMENT, a INT, b TEXT, KEY(i))");
 	$act = isset($_GET['act']) ? $_GET['act'] : false;
+	if(isset($_GET['showtopic'])) {
+		$act = "ST";
+		$_GET['id'] = $_GET['showtopic'];
+	}
 	switch($act) {
+		case "ST":
+			break;
 		default:
 			include("source/idx.php");
 			break;

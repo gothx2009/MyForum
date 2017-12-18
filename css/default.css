@@ -72,3 +72,7 @@ th {
 	padding: 3px 5px;
 	text-align: left;
 }
+td {
+	border: 1px solid #DDDDDD;
+	padding: 3px 5px;
+}
