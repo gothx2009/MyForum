@@ -110,3 +110,12 @@ td {
 	display: inline-block;
 	padding: 5px;
 }
+
+.ava { width: 1%; }
+.ava img { width: 35px; }
+
+.post .actions { display: none; float: right; }
+.post .actions a { font-size: 15px; }
+.post:hover .actions { display: block; }
+.pinform { margin: 0 auto 10px; width: 500px; }
+.pinform td { text-align: center; }

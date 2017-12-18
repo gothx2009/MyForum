@@ -1,9 +1,16 @@
 MyForum
 ==========
-Romantic Version: `0.5.0`
+Symantic Version: `0.6.0`
 
-Symantic Version: `1-DEV`
+Romantic Version: `1-DEV`
 
 ### Changelog
+- 0.6.0
+  - Added emails to post form
+  - Added author gravatar to topic list.
+  - Added ability to delete posts.
+  - Added pagination to topic view.
 - 0.5.0
   - Initial release
+  
+### To Do

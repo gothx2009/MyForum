@@ -13,4 +13,5 @@
 	$board["name"] 			 = "MyForum";
 	$board["showversion"]	 = 1;
 	$board["posts_per_page"] = 15;
+	$board["admin_pin"]		 = "0000";
 ?>
