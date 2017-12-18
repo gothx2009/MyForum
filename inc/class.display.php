@@ -8,7 +8,7 @@
 			$html  = "<!DOCTYPE html><html lang='en'><head>";
 			$html .= "<meta charset='utf-8'>";
 			$html .= "<title>". $board['name'] ."</title>";
-			$html .= "<link rel='stylesheet' href='css/default.css'>";
+			$html .= "<link rel='stylesheet' href='css/fontawesome-all.css'><link rel='stylesheet' href='css/default.css'>";
 			$html .= "</head><body><div id='wrapper'>";
 			$html .= "<div id='logostrip'>". $board['name'] ."</div>";
 			$html .= "<ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul>";

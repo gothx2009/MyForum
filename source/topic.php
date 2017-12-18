@@ -1,55 +1,93 @@
 <?php
-	$id = isset($_GET['id']) ? intval($_GET['id']) : false;
-	if(!$id || $id == 0) {
-		$_SESSION['error'] = array("error", "Improper URL.");
-		header("Location: ./index.php");
-		exit;
-	}
-	$topic = false;
-	if($result = $db->query("SELECT * FROM t WHERE i='".$id."'")) {
-		if($result->num_rows < 1) {
-			$_SESSION['error'] = array("error", "Topic #".$id." does not exist.");
-			header("Location: ./index.php");
-			exit;
+	class ShowTopic {
+		var $id;
+		var $offset;
+		var $page;
+		var $topic;
+		function __construct() {
+			global $db, $board, $display;
+			$this->id = isset($_GET['id']) ? intval($_GET['id']) : false;
+			if(!$this->id || $this->id == 0) {
+				$_SESSION['error'] = array("error", "Improper URL");
+				header("Location: ./index.php");
+				exit;
+			}
+			$this->load_topic();
+			$display->crumbs[] = "Viewing Topic: <a href='./index.php?showtopic=". $this->id ."'>". $this->topic->title ."</a>";
+			$display->ptitle = "Reply";
+			$this->set_pagination();
+			$this->show_pagination();
+			$this->start_topic();
+			if($result = $db->query("SELECT * FROM p WHERE parent='". $this->id ."' ORDER BY i ASC LIMIT ". $this->offset .", ". $board['posts_per_page'])) {
+				while($row = $result->fetch_object()) {
+					$this->show_post($row);
+				}
+			}
+			$this->end_topic();
 		}
-		$topic = $result->fetch_object();
-	}
-	$display->crumbs[] = "Viewing topic: <a href='./index.php?showtopic=".$id."'>".$topic->title."</a>";
-	$display->ptitle = "Reply";
-	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-	$ppp = $board["posts_per_page"];
-	$result = $db->query("SELECT COUNT(*) AS ppp FROM p");
-	$row = $result->fetch_object();
-	$postCount = $row->ppp;
-	$pages = ceil($postCount/$ppp);
-	$display->to_output .= "<div class='pagination'><ul><li>Pages: </li>";
-	if($page > 1) {
-		$display->to_output .= "<li><a href='./index.php?showtopic=".$id."'><<</a></li>";
-		$display->to_output .= "<li><a href='./index.php?showtopic=".$id."&page=".($page-1)."'><</a></li>";
-	} else {
-		$display->to_output .= "<li><<</li><li><</li>";
-	}
-	for($i=$page-5;$i<=$page+5;$i++) {
-		if($i>0 && $i<=$pages) {
-			if($i == $page) {
-				$display->to_output .= "<li class='active'>".$i."</li>";
-			} else {
-				$display->to_output .= "<li><a href='./index.php?showtopic=".$id."&page=".$i."'>".$i."</a></li>";
+		function end_topic() {
+			global $display;
+			$html = "</table></div>";
+			$display->to_output .= $html;
+		}
+		function load_topic() {
+			global $db;
+			if($result = $db->query("SELECT * FROM t WHERE i='". $this->id ."'")) {
+				if($result->num_rows < 1) {
+					$_SESSION['error'] = array("error", "Topic #". $this->id ." does not exist.");
+					header("Location: ./index.php");
+					exit;
+				}
+				$this->topic = $result->fetch_object();
 			}
 		}
-	}
-	if($page < $pages) {
-		$display->to_output .= "<li><a href='./index.php?showtopic=".$id."&page=".($page+1)."'>></a><li><a href='./index.php?showtopic=".$id."&page=".$pages."'>>></a></li>";
-	} else {
-		$display->to_output .= "<li>></li><li>>></li>";
-	}
-	$display->to_output .= "</ul></div>";
-	$display->to_output .= "<div class='category'><div class='maintitle'>".$topic->title."</div><table>";
-	$offset = (($page-1)*$ppp);
-	if($result = $db->query("SELECT * FROM p WHERE parent='".$id."' LIMIT {$offset},{$ppp}")) {
-		while($row = $result->fetch_object()) {
-			$display->to_output .= "<tr><td>".$row->aname."</td><td>".$row->content."</td></tr>";
+		function set_pagination() {
+			global $board, $db;
+			$this->page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+			$result = $db->query("SELECT COUNT(*) AS pc FROM p WHERE parent='". $this->id ."'");
+			$row = $result->fetch_object();
+			$postCount = $row->pc;
+			$this->pages = ceil($postCount/$board['posts_per_page']);
+			if($this->page > $this->pages) {
+				$this->page = $this->pages;
+			}
+			$this->offset = (($this->page - 1) * $board['posts_per_page']);
+		}
+		function show_pagination() {
+			global $display;
+			$html = "<div class='pagination'><ul><li>Pages: </li>";
+			if($this->page > 1) {
+				$html .= "<li><a href='./index.php?showtopic=". $this->id ."'><<</a></li><li><a href='./index.php?showtopic=". $this->id ."'><</a></li>";
+			} else {
+				$html .= "<li><<</li><li><</li>";
+			}
+			for($i=$this->page-5;$i<=$this->page+5;$i++) {
+				if(($i > 0) && ($i <= $this->pages)) {
+					if($i == $this->page) {
+						$html .= "<li class='active'>". $i ."</li>";
+					} else {
+						$html .= "<li><a href='./index.php?showtopic=". $this->id. "&page=". $i ."'>". $i ."</a></li>";
+					}
+				}
+			}
+			if($this->page < $this->pages) {
+				$html .= "<li><a href='./index.php?showtopic=". $this->id ."&page=". ($this->page + 1) ."'>></a></li><li><a href='./index.php?showtopic=". $this->id ."&page=". $this->pages ."'>>></a></li>";
+			} else {
+				$html .= "<li>></li><li>>></li>";
+			}
+			$html .= "</ul></div>";
+			$display->to_output .= $html;
+		}
+		function show_post($post) {
+			global $display;
+			$html = "<tr><td>". $post->aname ."</td><td>". $post->content ."</td></tr>";
+			$display->to_output .= $html;
+		}
+		function start_topic() {
+			global $display;
+			$html = "<div class='category'><div class='maintitle'>". $this->topic->title ."</div><table>";
+			$display->to_output .= $html;
 		}
 	}
-	$display->to_output .= "</table></div>";
+	$idx = new ShowTopic;
 ?>
