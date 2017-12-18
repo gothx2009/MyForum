@@ -18,6 +18,9 @@
 		$_GET['id'] = $_GET['showtopic'];
 	}
 	switch($act) {
+		case "post":
+			include("source/post.php");
+			break;
 		case "ST":
 			break;
 		default:
