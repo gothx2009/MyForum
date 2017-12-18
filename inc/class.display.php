@@ -13,6 +13,10 @@
 			$html .= "<div id='logostrip'>". $board['name'] ."</div>";
 			$html .= "<ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul>";
 			$html .= "<div id='main'>";
+			if(isset($_SESSION['error'])) {
+				$html .= "<div class='alert alert_".$_SESSION['error'][0]."'>".$_SESSION['error'][1]."</div>";
+				unset($_SESSION['error']);
+			}
 			$html .= "<div class='crumbs'><a href='./index.php'>".$board['name']."</a> / ";
 			$html .= implode(" / ", $this->crumbs);
 			$html .= "</div>";

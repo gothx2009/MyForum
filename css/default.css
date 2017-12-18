@@ -83,3 +83,15 @@ td {
 	padding: 10px 0;
 	text-align: center;
 }
+.alert {
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 10px;
+	padding: 10px;
+}
+.alert_error {
+	background-color: #FDD;
+	border-color: #F00;
+	color: #F00;
+	font-weight: bold;
+}
