@@ -85,6 +85,11 @@
 			$html .= $myforum->gravatar($post->aemail,80,"mm","g",true,array());
 			$html .= "<br />".$post->aname ."</td><td class='post'><div class='actions'>";
 			if($this->first) {
+				$pin = "<a href='./index.php?act=pin&c=3&i=". $this->id ."'><i class='fa fa-thumbtack'></i></a> ";
+				if($this->topic->pinned) {
+					$pin = "<a href='./index.php?act=pin&c=4&i=". $this->id ."'><i class='fa fa-thumbtack'></i></a> ";
+				}
+				$html .= $pin;
 				$html .= "<a href='./index.php?act=pin&c=2&i=". $this->id ."'>";
 			} else {
 				$html .= "<a href='./index.php?act=pin&c=1&i=". $post->i ."'>";

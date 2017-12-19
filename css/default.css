@@ -121,3 +121,4 @@ td {
 .author { width: 125px; }
 
 .pinform td, .author { text-align: center; }
+.post, .author { vertical-align: top; }
