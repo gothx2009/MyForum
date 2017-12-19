@@ -6,12 +6,11 @@
 		var $page;
 		var $topic;
 		function __construct() {
-			global $db, $board, $display;
+			global $db, $board, $display, $myforum;
 			$this->id = isset($_GET['id']) ? intval($_GET['id']) : false;
 			if(!$this->id || $this->id == 0) {
 				$_SESSION['error'] = array("error", "Improper URL");
-				header("Location: ./index.php");
-				exit;
+				$myforum->redirect("index.php");
 			}
 			$this->load_topic();
 			$display->crumbs[] = "Viewing Topic: <a href='./index.php?showtopic=". $this->id ."'>". $this->topic->title ."</a>";

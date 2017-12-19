@@ -15,5 +15,9 @@
 			}
 			return $url;
 		}
+		function redirect($location) {
+			header("Location: ".$location);
+			exit;
+		}
 	}
 ?>
