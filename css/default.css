@@ -118,4 +118,7 @@ td {
 .post .actions a { font-size: 15px; }
 .post:hover .actions { display: block; }
 .pinform { margin: 0 auto 10px; width: 500px; }
-.pinform td { text-align: center; }
+.author { width: 125px; }
+
+.pinform td, .author { text-align: center; }
+.post, .author { vertical-align: top; }

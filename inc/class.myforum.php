@@ -1,6 +1,6 @@
 <?php
 	class MyForum {
-		var $sym_version = "0.6.0";
+		var $sym_version = "0.7.0";
 		var $version = "1-DEV";
 		function gravatar($email,$s=80,$d="mm",$r="g",$img=false,$atts=array()) {
 			$url = "//www.gravatar.com/avatar/";
@@ -14,6 +14,10 @@
 				$url .= ">";
 			}
 			return $url;
+		}
+		function redirect($location) {
+			header("Location: ".$location);
+			exit;
 		}
 	}
 ?>
