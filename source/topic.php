@@ -80,8 +80,10 @@
 			$display->to_output .= $html;
 		}
 		function show_post($post) {
-			global $display;
-			$html = "<tr><td>". $post->aname ."</td><td class='post'><div class='actions'>";
+			global $display, $myforum;
+			$html = "<tr><td class='author'>";
+			$html .= $myforum->gravatar($post->aemail,80,"mm","g",true,array());
+			$html .= "<br />".$post->aname ."</td><td class='post'><div class='actions'>";
 			if($this->first) {
 				$html .= "<a href='./index.php?act=pin&c=2&i=". $this->id ."'>";
 			} else {
