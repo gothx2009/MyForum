@@ -13,6 +13,9 @@
 				$myforum->redirect("index.php");
 			}
 			$this->load_topic();
+			if($this->topic->locked) {
+				$display->show_post_form = false;
+			}
 			$display->crumbs[] = "Viewing Topic: <a href='./index.php?showtopic=". $this->id ."'>". $this->topic->title ."</a>";
 			$display->ptitle = "Reply";
 			$this->set_pagination();
@@ -86,10 +89,14 @@
 			$html .= "<br />".$post->aname ."</td><td class='post'><div class='actions'>";
 			if($this->first) {
 				$pin = "<a href='./index.php?act=pin&c=3&i=". $this->id ."'><i class='fa fa-thumbtack'></i></a> ";
+				$lock = "<a href='./index.php?act=pin&c=5&i=". $this->id ."'><i class='fa fa-lock'></i></a> ";
 				if($this->topic->pinned) {
 					$pin = "<a href='./index.php?act=pin&c=4&i=". $this->id ."'><i class='fa fa-thumbtack'></i></a> ";
 				}
-				$html .= $pin;
+				if($this->topic->locked) {
+					$lock = "<a href='./index.php?act=pin&c=6&i=". $this->id ."'><i class='fa fa-unlock'></i></a> ";
+				}
+				$html .= $pin.$lock;
 				$html .= "<a href='./index.php?act=pin&c=2&i=". $this->id ."'>";
 			} else {
 				$html .= "<a href='./index.php?act=pin&c=1&i=". $post->i ."'>";
