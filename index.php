@@ -1,10 +1,11 @@
 <?php
 	define("MYFORUM", true);
+	$c = new stdclass;
 	include("inc/config.php");
 	include("inc/class.myforum.php");
 	include("inc/class.display.php");
 	session_start();
-	$myforum = new MyForum;
+	$myforum = new MyForum($c);
 	$display = new Display;
 	$db = new mysqli($sql['hostname'],$sql['username'],$sql['password'],$sql['database']);
 	$act = isset($_GET['act']) ? $_GET['act'] : false;
