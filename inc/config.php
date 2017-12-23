@@ -3,6 +3,7 @@
 		die("Direct initialization of this file is not allowed.");
 	}
 	$c->show_version	= true;
+	$c->theme			= "8bit";
 	$sql = array();
 	$board = array();
   
