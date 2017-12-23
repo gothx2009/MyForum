@@ -2,6 +2,7 @@
 	if(!defined("MYFORUM")) {
 		die("Direct initialization of this file is not allowed.");
 	}
+	$c->show_version	= true;
 	$sql = array();
 	$board = array();
   
@@ -11,7 +12,6 @@
 	$sql['database'] = "myforum";
 	
 	$board["name"] 			 = "MyForum";
-	$board["showversion"]	 = 1;
 	$board["posts_per_page"] = 15;
 	$board["admin_pin"]		 = "0000";
 ?>

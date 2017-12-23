@@ -33,8 +33,8 @@
 				}
 				$html .= "<tr><td>Post Content:</td><td><textarea name='pcontent'></textarea></td></tr><tr><td colspan='2'><input type='submit' value='Post'></td></tr></table></form></div>";
 			}
-			$html .= "<div id='copyright'>Powered by <a href='http://mlutz.us'>MyForum</a>";
-			if($board["showversion"]) {
+			$html .= "<div id='copyright'>Powered By <a href='http://mlutz.us'>MyForum</a>";
+			if($myforum->config->show_version) {
 				$html .= " (v".$myforum->version.")";
 			}
 			$html .= ".</div>";
