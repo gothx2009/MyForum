@@ -1,6 +1,7 @@
 <?php
 	define("MYFORUM", true);
 	$c = new stdclass;
+	$config = new stdclass;
 	include("inc/config.php");
 	include("inc/class.myforum.php");
 	include("inc/class.display.php");

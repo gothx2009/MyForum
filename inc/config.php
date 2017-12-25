@@ -2,6 +2,7 @@
 	if(!defined("MYFORUM")) {
 		die("Direct initialization of this file is not allowed.");
 	}
+	$config->site_name = "MyForum";
 	$c->show_version	= true;
 	$c->theme			= "8bit";
 	$sql = array();
