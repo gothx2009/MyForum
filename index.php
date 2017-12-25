@@ -1,11 +1,10 @@
 <?php
 	define("MYFORUM", true);
-	$c = new stdclass;
 	$config = new stdclass;
 	include("inc/config.php");
-	include("inc/class.myforum.php");
 	include("inc/class.display.php");
-	session_start();
+	include("inc/class.template.php");
+	include("inc/class.myforum.php");
 	$myforum = new MyForum($c);
 	$theme_file = "themes/default.php";
 	if(file_exists("themes/".$myforum->config->theme.".php")) {

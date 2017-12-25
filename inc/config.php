@@ -2,18 +2,15 @@
 	if(!defined("MYFORUM")) {
 		die("Direct initialization of this file is not allowed.");
 	}
-	$config->site_name = "MyForum";
-	$c->show_version	= true;
-	$c->theme			= "8bit";
+	$config->admin_pin		= "0000";
+	$config->show_version	= true;
+	$config->site_name		= "MyForum";
+	$config->theme			= "default";
+	$config->post_per_page	= 15;
 	$sql = array();
-	$board = array();
   
 	$sql['hostname'] = "localhost";
 	$sql['username'] = "root";
 	$sql['password'] = "";
 	$sql['database'] = "myforum";
-	
-	$board["name"] 			 = "MyForum";
-	$board["posts_per_page"] = 15;
-	$board["admin_pin"]		 = "0000";
 ?>
