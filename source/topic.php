@@ -25,7 +25,8 @@
 			$display->to_output .= implode(" ", $this->pagination);
 			$display->to_output .= $theme->pagination_end();
 			$display->to_output .= $theme->global_cat_start($this->topic->title);
-			if($result = $db->query("SELECT * FROM p WHERE parent='". $this->id ."' ORDER BY i ASC LIMIT ". $this->offset .", ". $config->post_per_page)) {
+			$sql = "SELECT * FROM p WHERE parent='{$this->id}' ORDER BY i ASC LIMIT {$this->offset}, {$config->post_per_page}";
+			if($result = $db->query($sql)) {
 				while($row = $result->fetch_object()) {
 					$this->show_post($row);
 					$this->first = false;
