@@ -28,7 +28,22 @@
 			$sql = "SELECT * FROM p WHERE parent='{$this->id}' ORDER BY i ASC LIMIT {$this->offset}, {$config->post_per_page}";
 			if($result = $db->query($sql)) {
 				while($row = $result->fetch_object()) {
-					$this->show_post($row);
+					$pin = "";
+					$lock = "";
+					$delete = "<a href='./index.php?act=pin&c=1&i=".$row->i."'>Delete Post</a>";
+					if($this->first) {
+						$pin = "<a href='./index.php?act=pin&c=3&i=". $this->id ."'>Pin</a>";
+						$lock = "<a href='./index.php?act=pin&c=5&i=". $this->id ."'>Lock</a>";
+						$delete = "<a href='./index.php?act=pin&c=2&i=".$row->i."'>Delete Topic</a>";
+					}
+					if($this->topic->pinned) {
+						$pin = "<a href='./index.php?act=pin&c=4&i=". $this->id ."'>Unpin</a>";
+					}
+					if($this->topic->locked) {
+						$lock = "<a href='./index.php?act=pin&c=6&i=". $this->id ."'>Unlock</a>";
+					}
+					$row->avatar = $myforum->gravatar($row->aemail,80,"mm","g",true,array());
+					$display->to_output .= $theme->topic_post($row, $pin, $lock, $delete);
 					$this->first = false;
 				}
 			}
@@ -84,29 +99,6 @@
 				$this->pagination[] = $theme->pagination_item("disabled", "&rsaquo;");
 				$this->pagination[] = $theme->pagination_item("disabled", "&raquo;");
 			}
-		}
-		function show_post($post) {
-			global $display, $myforum;
-			$html = "<tr><td class='author'>";
-			$html .= $myforum->gravatar($post->aemail,80,"mm","g",true,array());
-			$html .= "<br />".$post->aname ."</td><td class='post'><div class='actions'>";
-			if($this->first) {
-				$pin = "<a href='./index.php?act=pin&c=3&i=". $this->id ."'><i class='fa fa-thumbtack'></i></a> ";
-				$lock = "<a href='./index.php?act=pin&c=5&i=". $this->id ."'><i class='fa fa-lock'></i></a> ";
-				if($this->topic->pinned) {
-					$pin = "<a href='./index.php?act=pin&c=4&i=". $this->id ."'><i class='fa fa-thumbtack'></i></a> ";
-				}
-				if($this->topic->locked) {
-					$lock = "<a href='./index.php?act=pin&c=6&i=". $this->id ."'><i class='fa fa-unlock'></i></a> ";
-				}
-				$html .= $pin.$lock;
-				$html .= "<a href='./index.php?act=pin&c=2&i=". $this->id ."'>";
-			} else {
-				$html .= "<a href='./index.php?act=pin&c=1&i=". $post->i ."'>";
-			}
-			$html .= "<i class='fa fa-times-circle'></i></a></div>";
-			$html .= $post->content ."</td></tr>";
-			$display->to_output .= $html;
 		}
 	}
 	$idx = new ShowTopic;
