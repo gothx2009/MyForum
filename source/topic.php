@@ -24,7 +24,7 @@
 			$display->to_output .= $theme->pagination_start();
 			$display->to_output .= implode(" ", $this->pagination);
 			$display->to_output .= $theme->pagination_end();
-			$this->start_topic();
+			$display->to_output .= $theme->global_cat_start($this->topic->title);
 			if($result = $db->query("SELECT * FROM p WHERE parent='". $this->id ."' ORDER BY i ASC LIMIT ". $this->offset .", ". $config->post_per_page)) {
 				while($row = $result->fetch_object()) {
 					$this->show_post($row);
@@ -105,11 +105,6 @@
 			}
 			$html .= "<i class='fa fa-times-circle'></i></a></div>";
 			$html .= $post->content ."</td></tr>";
-			$display->to_output .= $html;
-		}
-		function start_topic() {
-			global $display;
-			$html = "<div class='category'><div class='maintitle'>". $this->topic->title ."</div><table>";
 			$display->to_output .= $html;
 		}
 	}

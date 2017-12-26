@@ -16,6 +16,9 @@
 			global $config;
 			return "<div class='crumbs'><a href='./index.php'>{$config->site_name}</a>";
 		}
+		function global_cat_start($title) {
+			return "<div class='category'><div class='maintitle'>{$title}</div><table>";
+		}
 		function global_end() {
 			return "</div></div></body></html>";
 		}
@@ -49,6 +52,9 @@
 		}
 		function pagination_start() {
 			return "<div class='pagination'><ul><li>Pages:</li>";
+		}
+		function topic_post($post, $pin, $lock, $delete) {
+			return "<tr><td class='author'>{$post->avatar}<br />{$post->aname}</td><td class='post'><div class='actions'>{$pin}{$lock}{$delete}</div>{$post->content}</td></tr>";
 		}
 	}
 ?>
