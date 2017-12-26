@@ -1,30 +1,35 @@
 <?php
 	define("MYFORUM", true);
+	$config = new stdclass;
 	include("inc/config.php");
-	include("inc/class.myforum.php");
 	include("inc/class.display.php");
+	include("inc/class.template.php");
+	include("inc/class.myforum.php");
 	session_start();
-	$myforum = new MyForum;
-	$display = new Display;
 	$db = new mysqli($sql['hostname'],$sql['username'],$sql['password'],$sql['database']);
-	$act = isset($_GET['act']) ? $_GET['act'] : false;
+	$display = new Display;
+	$myforum = new MyForum;
+	if(file_exists("themes/". $config->theme .".php")) {
+		include("themes/". $config->theme .".php");
+		$theme = new Theme;
+	} else {
+		$theme = new Template;
+	}
+	$act = isset($_GET['act']) ? $_GET['act'] : "idx";
 	if(isset($_GET['showtopic'])) {
 		$act = "ST";
 		$_GET['id'] = $_GET['showtopic'];
 	}
-	switch($act) {
-		case "pin":
-			include("source/pin.php");
-			break;
-		case "post":
-			include("source/post.php");
-			break;
-		case "ST":
-			include("source/topic.php");
-			break;
-		default:
-			include("source/idx.php");
-			break;
+	$choices = array(
+		"id"	=> "ident",
+		"idx"	=> "idx",
+		"pin"	=> "pin",
+		"post"	=> "post",
+		"ST"	=> "topic",
+	);
+	if(!array_key_exists($act,$choices)) {
+		$act = "idx";
 	}
+	include("source/{$choices[$act]}.php");
 	$display->output();
 ?>

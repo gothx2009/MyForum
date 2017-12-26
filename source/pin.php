@@ -15,6 +15,9 @@
 					$this->show_pin_form();
 				} else {
 					switch($code) {
+						case 5:
+							$this->lock_topic($id);
+							break;
 						case 4:
 							$this->unpin_topic($id);
 							break;
@@ -49,6 +52,11 @@
 			$display->crumbs[] = "Topic Deleted.";
 			$_SESSION['error'] = array("success", "The topic has been deleted.");
 		}
+		function lock_topic($id) {
+			global $db, $myforum;
+			$db->query("UPDATE t SET locked=1 WHERE i='".$id."'");
+			$myforum->redirect("index.php?showtopic=".$id);
+		}
 		function pin_topic($id) {
 			global $db, $myforum;
 			$db->query("UPDATE t SET pinned=1 WHERE i='".$id."'");
@@ -61,6 +69,9 @@
 			$id = isset($_GET['i']) ? intval($_GET['i']) : false;
 			$html = "<div class='category pinform'><form action='./index.php?act=pin' method='post'><input type='hidden' name='code' value='". $code ."'><input type='hidden' name='id' value='". $id ."'><div class='maintitle'>Administration PIN</div><table><tr><td>";
 			switch($code) {
+				case 5:
+					$html .= "Enter the PIN to lock topic #". $id;
+					break;
 				case 4:
 					$html .= "Enter the PIN to unpin topic #". $id;
 					break;

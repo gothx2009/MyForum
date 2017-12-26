@@ -2,44 +2,56 @@
 	class Display {
 		var $crumbs = array();
 		var $ptitle = "Topic";
-		var $show_post_form = true;
+		var $show_form = true;
 		var $to_output;
 		function output() {
-			global $board, $myforum;
-			$html  = "<!DOCTYPE html><html lang='en'><head>";
-			$html .= "<meta charset='utf-8'>";
-			$html .= "<title>". $board['name'] ."</title>";
-			$html .= "<link rel='stylesheet' href='css/fontawesome-all.css'><link rel='stylesheet' href='css/default.css'>";
-			$html .= "</head><body><div id='wrapper'>";
-			$html .= "<div id='logostrip'>". $board['name'] ."</div>";
-			$html .= "<ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul>";
-			$html .= "<div id='main'>";
+			global $config, $myforum, $theme;
+			$css = "<link rel='stylesheet' href='html/myforum.css'>";
+			if(file_exists("themes/".$config->theme.".css")) {
+				$css = "<link rel='stylesheet' href='themes/".$config->theme.".css'>";
+			}
+			$html = "<!DOCTYPE html><html><head><meta charset='utf-8'>";
+			$html .= $theme->meta_extra();
+			$html .= "<title>". $config->site_name ."</title>";
+			$html .= $css;
+			$html .= $theme->css_extra();
+			$html .= "</head><body>";
+			$idlink = "<a href='./index.php?act=id' class='link'>Identify</a>";
+			if($myforum->user->name !== "Anonymous") {
+				$idlink = "";
+			}
+			$html .= $theme->global_userbar($idlink, $myforum->user);
+			$html .= $theme->global_start();
 			if(isset($_SESSION['error'])) {
-				$html .= "<div class='alert alert_".$_SESSION['error'][0]."'>".$_SESSION['error'][1]."</div>";
+				$html .= $theme->global_alert($_SESSION['error'][0],$_SESSION['error'][1]);
 				unset($_SESSION['error']);
 			}
-			$html .= "<div class='crumbs'><a href='./index.php'>".$board['name']."</a> / ";
-			$html .= implode(" / ", $this->crumbs);
-			$html .= "</div>";
+			$html .= $theme->global_bread_start();
+			$html .= $theme->global_bread_sep();
+			$html .= implode($theme->global_bread_sep(), $this->crumbs);
+			$html .= $theme->global_bread_end();
 			$html .= $this->to_output;
-			if($this->show_post_form) {
-				$html .= "<div class='category'><form method='post' action='index.php?act=post'>";
-				if(isset($_GET['id'])) {
-					$html .= "<input type='hidden' name='tid' value='".intval($_GET['id'])."'>";
-				}
-				$html .= "<div class='maintitle'>Post ".$this->ptitle."</div><table><tr><td>Display Name:<br /><em>Optional</em></td><td><input type='text' name='aname'></td></tr><tr><td>Email:</td><td><input type='email' name='aemail'></td></tr>";
+			if($this->show_form) {
+				$tid = isset($_GET['id']) ? intval($_GET['id']) : 0;
+				$title = "Post ".$this->ptitle;
+				$html .= $theme->global_form_start("index.php?act=post","post",$title);
+				$html .= $theme->global_form_hidden("tid",$tid);
+				$html .= $theme->global_form_hidden("aname",$myforum->user->name);
+				$html .= $theme->global_form_hidden("aemail",$myforum->user->email);
 				if($this->ptitle == "Topic") {
-					$html .= "<tr><td>Topic Title:</td><td><input type='text' name='ttitle'></td></tr>";
+					$html .= $theme->global_form_text("Topic Title", "ttitle");
 				}
-				$html .= "<tr><td>Post Content:</td><td><textarea name='pcontent'></textarea></td></tr><tr><td colspan='2'><input type='submit' value='Post'></td></tr></table></form></div>";
+				$html .= $theme->global_form_textarea("Post Content", "pcontent");
+				$html .= $theme->global_form_end();
 			}
-			$html .= "<div id='copyright'>Powered by <a href='http://mlutz.us'>MyForum</a>";
-			if($board["showversion"]) {
-				$html .= " (v".$myforum->version.")";
+			$version = false;
+			if($config->show_version) {
+				$version = " (v".$myforum->version.")";
 			}
-			$html .= ".</div>";
-			$html .= "</div></div></body></html>";
-			echo $html;
+			$copyright = "<div id='copyright'>Powered by <a href='http://mlutz.us'>MyForum</a>{$version}</div>";
+			$html .= $copyright;	
+			$html .= $theme->global_end();
+			exit($html);
 		}
 	}
 ?>

@@ -4,32 +4,50 @@
 		var $id;
 		var $offset;
 		var $page;
+		var $pagination = array();
 		var $topic;
 		function __construct() {
-			global $db, $board, $display, $myforum;
+			global $db, $config, $display, $myforum, $theme;
 			$this->id = isset($_GET['id']) ? intval($_GET['id']) : false;
-			if(!$this->id || $this->id == 0) {
+			if(!$this->id) {
 				$_SESSION['error'] = array("error", "Improper URL");
 				$myforum->redirect("index.php");
 			}
 			$this->load_topic();
-			$display->crumbs[] = "Viewing Topic: <a href='./index.php?showtopic=". $this->id ."'>". $this->topic->title ."</a>";
+			if($this->topic->locked) {
+				$display->show_form = false;
+			}
+			$display->crumbs[] = "Viewing Topic";
+			$display->crumbs[] = "<a href='./index.php?showtopic=". $this->topic->i ."'>". $this->topic->title ."</a>";
 			$display->ptitle = "Reply";
 			$this->set_pagination();
-			$this->show_pagination();
-			$this->start_topic();
-			if($result = $db->query("SELECT * FROM p WHERE parent='". $this->id ."' ORDER BY i ASC LIMIT ". $this->offset .", ". $board['posts_per_page'])) {
+			$display->to_output .= $theme->pagination_start();
+			$display->to_output .= implode(" ", $this->pagination);
+			$display->to_output .= $theme->pagination_end();
+			$display->to_output .= $theme->global_cat_start($this->topic->title);
+			$sql = "SELECT * FROM p WHERE parent='{$this->id}' ORDER BY i ASC LIMIT {$this->offset}, {$config->post_per_page}";
+			if($result = $db->query($sql)) {
 				while($row = $result->fetch_object()) {
-					$this->show_post($row);
+					$pin = "";
+					$lock = "";
+					$delete = "<a href='./index.php?act=pin&c=1&i=".$row->i."'>Delete Post</a>";
+					if($this->first) {
+						$pin = "<a href='./index.php?act=pin&c=3&i=". $this->id ."'>Pin</a>";
+						$lock = "<a href='./index.php?act=pin&c=5&i=". $this->id ."'>Lock</a>";
+						$delete = "<a href='./index.php?act=pin&c=2&i=".$row->i."'>Delete Topic</a>";
+					}
+					if($this->topic->pinned) {
+						$pin = "<a href='./index.php?act=pin&c=4&i=". $this->id ."'>Unpin</a>";
+					}
+					if($this->topic->locked) {
+						$lock = "<a href='./index.php?act=pin&c=6&i=". $this->id ."'>Unlock</a>";
+					}
+					$row->avatar = $myforum->gravatar($row->aemail,80,"mm","g",true,array());
+					$display->to_output .= $theme->topic_post($row, $pin, $lock, $delete);
 					$this->first = false;
 				}
 			}
-			$this->end_topic();
-		}
-		function end_topic() {
-			global $display;
-			$html = "</table></div>";
-			$display->to_output .= $html;
+			$display->to_output .= $theme->global_cat_end();
 		}
 		function load_topic() {
 			global $db;
@@ -43,65 +61,39 @@
 			}
 		}
 		function set_pagination() {
-			global $board, $db;
+			global $config, $db, $theme;
 			$this->page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 			$result = $db->query("SELECT COUNT(*) AS pc FROM p WHERE parent='". $this->id ."'");
 			$row = $result->fetch_object();
 			$postCount = $row->pc;
-			$this->pages = ceil($postCount/$board['posts_per_page']);
+			$this->pages = ceil($postCount/$config->post_per_page);
 			if($this->page > $this->pages) {
 				$this->page = $this->pages;
 			}
-			$this->offset = (($this->page - 1) * $board['posts_per_page']);
-		}
-		function show_pagination() {
-			global $display;
-			$html = "<div class='pagination'><ul><li>Pages: </li>";
-			if($this->page > 1) {
-				$html .= "<li><a href='./index.php?showtopic=". $this->id ."'><<</a></li><li><a href='./index.php?showtopic=". $this->id ."'><</a></li>";
+			$this->offset = (($this->page - 1) * $config->post_per_page);
+			if($this->page === 1) {
+				$this->pagination[] = $theme->pagination_item("disabled", "&laquo;");
+				$this->pagination[] = $theme->pagination_item("disabled", "&lsaquo;");
 			} else {
-				$html .= "<li><<</li><li><</li>";
+				$this->pagination[] = $theme->pagination_item("", "<a href='./index.php?showtopic='". $this->id ."'>&laquo;</a>");
+				$this->pagination[] = $theme->pagination_item("", "<a href='./index.php?showtopic='".$this->id."&page=".($this->page - 1)."'><</a>");
 			}
 			for($i=$this->page-5;$i<=$this->page+5;$i++) {
 				if(($i > 0) && ($i <= $this->pages)) {
 					if($i == $this->page) {
-						$html .= "<li class='active'>". $i ."</li>";
+						$this->pagination[] = $theme->pagination_item("active", $i);
 					} else {
-						$html .= "<li><a href='./index.php?showtopic=". $this->id. "&page=". $i ."'>". $i ."</a></li>";
+						$this->pagination[] = $theme->pagination_item("", "<a href='./index.php?showtopic=". $this->id. "&page=". $i ."'>". $i ."</a>");
 					}
 				}
 			}
 			if($this->page < $this->pages) {
-				$html .= "<li><a href='./index.php?showtopic=". $this->id ."&page=". ($this->page + 1) ."'>></a></li><li><a href='./index.php?showtopic=". $this->id ."&page=". $this->pages ."'>>></a></li>";
+				$this->pagination[] = $theme->pagination_item("", "<a href='./index.php?showtopic=". $this->id ."&page=". ($this->page + 1) ."'>></a>");
+				$this->pagination[] = $theme->pagination_item("", "<a href='./index.php?showtopic=". $this->id ."&page=". $this->pages ."'>>></a>");
 			} else {
-				$html .= "<li>></li><li>>></li>";
+				$this->pagination[] = $theme->pagination_item("disabled", "&rsaquo;");
+				$this->pagination[] = $theme->pagination_item("disabled", "&raquo;");
 			}
-			$html .= "</ul></div>";
-			$display->to_output .= $html;
-		}
-		function show_post($post) {
-			global $display, $myforum;
-			$html = "<tr><td class='author'>";
-			$html .= $myforum->gravatar($post->aemail,80,"mm","g",true,array());
-			$html .= "<br />".$post->aname ."</td><td class='post'><div class='actions'>";
-			if($this->first) {
-				$pin = "<a href='./index.php?act=pin&c=3&i=". $this->id ."'><i class='fa fa-thumbtack'></i></a> ";
-				if($this->topic->pinned) {
-					$pin = "<a href='./index.php?act=pin&c=4&i=". $this->id ."'><i class='fa fa-thumbtack'></i></a> ";
-				}
-				$html .= $pin;
-				$html .= "<a href='./index.php?act=pin&c=2&i=". $this->id ."'>";
-			} else {
-				$html .= "<a href='./index.php?act=pin&c=1&i=". $post->i ."'>";
-			}
-			$html .= "<i class='fa fa-times-circle'></i></a></div>";
-			$html .= $post->content ."</td></tr>";
-			$display->to_output .= $html;
-		}
-		function start_topic() {
-			global $display;
-			$html = "<div class='category'><div class='maintitle'>". $this->topic->title ."</div><table>";
-			$display->to_output .= $html;
 		}
 	}
 	$idx = new ShowTopic;

@@ -13,7 +13,15 @@
 				$started = 1;
 				$display->to_output .= "<tr><th colspan='2'>Topics:</th></tr>";
 			}
-			$display->to_output .= "<tr><td><a href='./index.php?showtopic=".$row->i."'>". $row->title ."</a></td><td class='ava'>".$myforum->gravatar($row->aemail,100,"mm","g",true,array())."</td></tr>";
+			$trstart = "<tr>";
+			$prefix = "";
+			$display->to_output .= "";
+			if($row->locked) {
+				$trstart = "<tr class='locked'>";
+				$prefix = "<strong>LOCKED: </strong>";
+			}
+			$display->to_output .= $trstart."<td>".$prefix;
+			$display->to_output .= "<a href='./index.php?showtopic=".$row->i."'>". $row->title ."</a></td><td class='ava'>".$myforum->gravatar($row->aemail,100,"mm","g",true,array())."</td></tr>";
 		}
 	}
 	$display->to_output .= "</table></div>";
