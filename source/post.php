@@ -1,4 +1,13 @@
 <?php
+	class Post {
+		function __construct() {
+			global $myforum;
+			if($_SERVER['REQUEST_METHOD'] !== "POST") {
+				$myforum->redirect("index.php");
+			}
+		}
+	}
+	$idx = new Post;
 	$content = isset($_POST['pcontent']) ? trim($_POST['pcontent']) : false;
 	$email = isset($_POST['aemail']) ? trim($_POST['aemail']) : false;
 	if(!$content || !$email || $content == "" || $email == "") {
