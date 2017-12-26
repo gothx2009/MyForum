@@ -1,11 +1,6 @@
 <?php
 	class MyForum {
-		var $config;
-		var $sym_version = "0.7.0";
 		var $version = "1-DEV";
-		function __construct($c) {
-			$this->config = $c;
-		}
 		function gravatar($email,$s=80,$d="mm",$r="g",$img=false,$atts=array()) {
 			$url = "//www.gravatar.com/avatar/";
 			$url .= md5(strtolower(trim($email)));
