@@ -16,6 +16,11 @@
 			$html .= $css;
 			$html .= $theme->css_extra();
 			$html .= "</head><body>";
+			$idlink = "<a href='./index.php?act=id' class='link'>Identify</a>";
+			if($myforum->user->name !== "Anonymous") {
+				$idlink = "";
+			}
+			$html .= $theme->global_userbar($idlink, $myforum->user);
 			$html .= $theme->global_start();
 			if(isset($_SESSION['error'])) {
 				$html .= $theme->global_alert($_SESSION['error'][0],$_SESSION['error'][1]);
@@ -31,8 +36,8 @@
 				$title = "Post ".$this->ptitle;
 				$html .= $theme->global_form_start("index.php?act=post","post",$title);
 				$html .= $theme->global_form_hidden("tid",$tid);
-				$html .= $theme->global_form_text("Display Name<br /><em>Optional</em>", "aname");
-				$html .= $theme->global_form_text("Email", "aemail");
+				$html .= $theme->global_form_hidden("aname",$myforum->user->name);
+				$html .= $theme->global_form_hidden("aemail",$myforum->user->email);
 				if($this->ptitle == "Topic") {
 					$html .= $theme->global_form_text("Topic Title", "ttitle");
 				}

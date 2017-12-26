@@ -1,7 +1,7 @@
 <?php
 	class Post {
 		function __construct() {
-			global $myforum;
+			global $myforum, $db;
 			if($_SERVER['REQUEST_METHOD'] !== "POST") {
 				$myforum->redirect("index.php");
 			}
@@ -15,12 +15,12 @@
 			if(!$content || !$email || $content == "" || $email == "") {
 				$myforum->redirect("index.php");
 			}
-			if($tid) {
-				$db->query("INSERT INTO t(pinned,locked,aemail,title) VALUES(0,0,'{$email}','{$title}');");
+			if(!$tid) {
+				$db->query("INSERT INTO t (pinned,locked,aemail,title) VALUES(0,0,'{$email}','{$title}');");
 				$tid = $db->insert_id;
 			}
 			$db->query("INSERT INTO p (parent,aname,aemail,content) VALUES ('{$tid}','{$authorname}','{$email}','{$content}');");
-			$myforum->redirect("index.php?showtopic".$tid);
+			$myforum->redirect("index.php?showtopic=".$tid);
 		}
 	}
 	$idx = new Post;

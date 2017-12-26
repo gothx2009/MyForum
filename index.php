@@ -21,6 +21,7 @@
 		$_GET['id'] = $_GET['showtopic'];
 	}
 	$choices = array(
+		"id"	=> "ident",
 		"idx"	=> "idx",
 		"pin"	=> "pin",
 		"post"	=> "post",

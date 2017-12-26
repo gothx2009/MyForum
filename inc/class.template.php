@@ -26,7 +26,7 @@
 			return "</div></div></body></html>";
 		}
 		function global_form_end() {
-			return "<tr><td colspan='2'><input type='submit' value='Submit Post'></td></tr></table></div></form>";
+			return "<tr><td colspan='2'><input type='submit' value='Submit'></td></tr></table></div></form>";
 		}
 		function global_form_hidden($name,$value) {
 			return "<input type='hidden' name='{$name}' value='{$value}'>";
@@ -34,8 +34,8 @@
 		function global_form_start($action,$method,$title) {
 			return "<form method='{$method}' action='{$action}'><div class='category'><div class='maintitle'>{$title}</div><table>";
 		}
-		function global_form_text($label,$name) {
-			return "<tr><td>{$label}:</td><td><input type='text' name='{$name}'></td></tr>";
+		function global_form_text($label,$name,$default=null) {
+			return "<tr><td>{$label}:</td><td><input type='text' name='{$name}' value='{$default}'></td></tr>";
 		}
 		function global_form_textarea($label,$name) {
 			return "<tr><td>{$label}</td><td><textarea name='{$name}'></textarea></td></tr>";
@@ -43,6 +43,9 @@
 		function global_start() {
 			global $config;
 			return "<div id='wrapper'><div id='logostrip'>{$config->site_name}</div><ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul><div id='main'>";
+		}
+		function global_userbar($id,$user) {
+			return "<div id='userbar'>{$id}{$user->avatar}<div>{$user->name}</div></div>";
 		}
 		function meta_extra() {
 			return "";

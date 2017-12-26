@@ -123,3 +123,7 @@ td {
 
 .pinform td, .author { text-align: center; }
 .post, .author { vertical-align: top; }
+#userbar { background-color: #FFFFFF; border-bottom: 1px solid #DDDDDD; padding: 5px 20px; height: 15px; line-height: 15px; }
+.userbar_avatar { width: 15px; float: left; }
+#userbar div { margin-left: 25px; }
+#userbar .link { float: right; }
