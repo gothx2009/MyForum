@@ -96,8 +96,6 @@ td {
 	font-weight: bold;
 }
 .pagination {
-	background-color: #EFEFEF;
-	border: 1px solid #DDDDDD;
 	margin: 0 0 10px;
 }
 .pagination ul {
@@ -106,9 +104,11 @@ td {
 	padding: 0;
 }
 .pagination li {
-	border-right: 1px solid #DDD;
 	display: inline-block;
 	padding: 5px;
+}
+.pagin-item {
+	border: 1px solid #DDDDDD;
 }
 
 .ava { width: 1%; }

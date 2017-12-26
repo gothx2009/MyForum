@@ -41,5 +41,14 @@
 		function meta_extra() {
 			return "";
 		}
+		function pagination_item($class, $bit) {
+			return "<li class='pagin-item {$class}'>{$bit}</li>";
+		}
+		function pagination_end() {
+			return "</ul></div>";
+		}
+		function pagination_start() {
+			return "<div class='pagination'><ul><li>Pages:</li>";
+		}
 	}
 ?>
