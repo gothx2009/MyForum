@@ -47,12 +47,7 @@
 					$this->first = false;
 				}
 			}
-			$this->end_topic();
-		}
-		function end_topic() {
-			global $display;
-			$html = "</table></div>";
-			$display->to_output .= $html;
+			$display->to_output .= $theme->global_cat_end();
 		}
 		function load_topic() {
 			global $db;

@@ -16,6 +16,9 @@
 			global $config;
 			return "<div class='crumbs'><a href='./index.php'>{$config->site_name}</a>";
 		}
+		function global_cat_end() {
+			return "</table></div>";
+		}
 		function global_cat_start($title) {
 			return "<div class='category'><div class='maintitle'>{$title}</div><table>";
 		}
