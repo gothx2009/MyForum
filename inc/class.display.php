@@ -31,7 +31,7 @@
 				$title = "Post ".$this->ptitle;
 				$html .= $theme->global_form_start("index.php?act=post","post",$title);
 				$html .= $theme->global_form_hidden("tid",$tid);
-				$html .= $theme->global_form_text("Display Name", "aname");
+				$html .= $theme->global_form_text("Display Name<br /><em>Optional</em>", "aname");
 				$html .= $theme->global_form_text("Email", "aemail");
 				if($this->ptitle == "Topic") {
 					$html .= $theme->global_form_text("Topic Title", "ttitle");
