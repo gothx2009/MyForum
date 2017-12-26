@@ -6,22 +6,23 @@
 		var $page;
 		var $topic;
 		function __construct() {
-			global $db, $board, $display, $myforum;
+			global $db, $config, $display, $myforum, $theme;
 			$this->id = isset($_GET['id']) ? intval($_GET['id']) : false;
-			if(!$this->id || $this->id == 0) {
+			if(!$this->id) {
 				$_SESSION['error'] = array("error", "Improper URL");
 				$myforum->redirect("index.php");
 			}
 			$this->load_topic();
 			if($this->topic->locked) {
-				$display->show_post_form = false;
+				$display->show_form = false;
 			}
-			$display->crumbs[] = "Viewing Topic: <a href='./index.php?showtopic=". $this->id ."'>". $this->topic->title ."</a>";
+			$display->crumbs[] = "Viewing Topic";
+			$display->crumbs[] = "<a href='./index.php?showtopic=". $this->topic->i ."'>". $this->topic->title ."</a>";
 			$display->ptitle = "Reply";
 			$this->set_pagination();
 			$this->show_pagination();
 			$this->start_topic();
-			if($result = $db->query("SELECT * FROM p WHERE parent='". $this->id ."' ORDER BY i ASC LIMIT ". $this->offset .", ". $board['posts_per_page'])) {
+			if($result = $db->query("SELECT * FROM p WHERE parent='". $this->id ."' ORDER BY i ASC LIMIT ". $this->offset .", ". $config->post_per_page)) {
 				while($row = $result->fetch_object()) {
 					$this->show_post($row);
 					$this->first = false;
@@ -46,16 +47,16 @@
 			}
 		}
 		function set_pagination() {
-			global $board, $db;
+			global $config, $db;
 			$this->page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 			$result = $db->query("SELECT COUNT(*) AS pc FROM p WHERE parent='". $this->id ."'");
 			$row = $result->fetch_object();
 			$postCount = $row->pc;
-			$this->pages = ceil($postCount/$board['posts_per_page']);
+			$this->pages = ceil($postCount/$config->post_per_page);
 			if($this->page > $this->pages) {
 				$this->page = $this->pages;
 			}
-			$this->offset = (($this->page - 1) * $board['posts_per_page']);
+			$this->offset = (($this->page - 1) * $config->post_per_page);
 		}
 		function show_pagination() {
 			global $display;
