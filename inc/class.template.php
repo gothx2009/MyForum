@@ -45,15 +45,21 @@
 		function global_form_textarea($label,$name) {
 			return "<tr><td>{$label}</td><td><textarea name='{$name}'></textarea></td></tr>";
 		}
-		function global_start($userbar) {
+		function global_start($userbar,$crumbs) {
 			global $config;
-			return "{$userbar}<div id='wrapper'><div id='logostrip'>{$config->site_name}</div><ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul><div id='main'>";
+			return "{$userbar}<div id='wrapper'><div id='logostrip'>{$config->site_name}</div><ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul><div id='main'>{$crumbs}";
 		}
-		function global_userbar($id,$user) {
-			return "<div id='userbar'>{$id}{$user->avatar}<div>{$user->name}</div></div>";
+		function global_userbar($id,$login,$register,$user) {
+			return "<div id='userbar'>{$id}{$login}{$register}{$user->avatar}<div>{$user->name}</div></div>";
 		}
 		function global_userbar_idlink() {
 			return "<a href='./index.php?act=id' class='link'>Identify</a>";
+		}
+		function global_userbar_loginlink() {
+			return "<a href='./index.php?act=login' class='link'>Login</a>";
+		}
+		function global_userbar_reglink() {
+			return "<a href='./index.php?act=reg' class='link'>Register</a>";
 		}
 		function js_extra() {
 			return "";

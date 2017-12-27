@@ -18,19 +18,21 @@
 			$html .= $theme->js_extra();
 			$html .= "</head><body>";
 			$idlink = $theme->global_userbar_idlink();
+			$login = $theme->global_userbar_loginlink();
+			$reglink = $theme->global_userbar_reglink();
 			if($myforum->user->name !== "Anonymous") {
 				$idlink = "";
 			}
-			$userbar = $theme->global_userbar($idlink, $myforum->user);
-			$html .= $theme->global_start($userbar);
+			$userbar = $theme->global_userbar($idlink,$login,$reglink,$myforum->user);
+			$crumbs = $theme->global_bread_start();
+			$crumbs .= $theme->global_bread_sep();
+			$crumbs .= implode($theme->global_bread_sep(), $this->crumbs);
+			$crumbs .= $theme->global_bread_end();
+			$html .= $theme->global_start($userbar,$crumbs);
 			if(isset($_SESSION['error'])) {
 				$html .= $theme->global_alert($_SESSION['error'][0],$_SESSION['error'][1]);
 				unset($_SESSION['error']);
 			}
-			$html .= $theme->global_bread_start();
-			$html .= $theme->global_bread_sep();
-			$html .= implode($theme->global_bread_sep(), $this->crumbs);
-			$html .= $theme->global_bread_end();
 			$html .= $this->to_output;
 			if($this->show_form) {
 				$tid = isset($_GET['id']) ? intval($_GET['id']) : 0;
