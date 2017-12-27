@@ -1,5 +1,10 @@
 <?php
 	class Template {
+		/* Global Bits */
+		function global_before_end() {
+			return "";
+		}
+		
 		function css_extra() {
 			return "";
 		}
@@ -22,8 +27,8 @@
 		function global_cat_start($title) {
 			return "<div class='category'><div class='maintitle'>{$title}</div><table>";
 		}
-		function global_end() {
-			return "</div></div></body></html>";
+		function global_end($copyright, $before_end) {
+			return "{$copyright}</div></div></body></html>";
 		}
 		function global_form_end() {
 			return "<tr><td colspan='2'><input type='submit' value='Submit'></td></tr></table></div></form>";
@@ -46,6 +51,12 @@
 		}
 		function global_userbar($id,$user) {
 			return "<div id='userbar'>{$id}{$user->avatar}<div>{$user->name}</div></div>";
+		}
+		function global_userbar_idlink() {
+			return "<a href='./index.php?act=id' class='link'>Identify</a>";
+		}
+		function js_extra() {
+			return "";
 		}
 		function meta_extra() {
 			return "";

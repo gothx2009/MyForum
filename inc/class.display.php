@@ -15,8 +15,9 @@
 			$html .= "<title>". $config->site_name ."</title>";
 			$html .= $css;
 			$html .= $theme->css_extra();
+			$html .= $theme->js_extra();
 			$html .= "</head><body>";
-			$idlink = "<a href='./index.php?act=id' class='link'>Identify</a>";
+			$idlink = $theme->global_userbar_idlink();
 			if($myforum->user->name !== "Anonymous") {
 				$idlink = "";
 			}
@@ -49,8 +50,8 @@
 				$version = " (v".$myforum->version.")";
 			}
 			$copyright = "<div id='copyright'>Powered by <a href='http://mlutz.us'>MyForum</a>{$version}</div>";
-			$html .= $copyright;	
-			$html .= $theme->global_end();
+			$before_end = $theme->global_before_end();
+			$html .= $theme->global_end($copyright, $before_end);
 			exit($html);
 		}
 	}
