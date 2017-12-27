@@ -40,9 +40,9 @@
 		function global_form_textarea($label,$name) {
 			return "<tr><td>{$label}</td><td><textarea name='{$name}'></textarea></td></tr>";
 		}
-		function global_start() {
+		function global_start($userbar) {
 			global $config;
-			return "<div id='wrapper'><div id='logostrip'>{$config->site_name}</div><ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul><div id='main'>";
+			return "{$userbar}<div id='wrapper'><div id='logostrip'>{$config->site_name}</div><ul class='topmenu'><li><a href='./index.php'>Home</a></li></ul><div id='main'>";
 		}
 		function global_userbar($id,$user) {
 			return "<div id='userbar'>{$id}{$user->avatar}<div>{$user->name}</div></div>";

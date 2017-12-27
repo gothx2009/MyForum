@@ -20,8 +20,8 @@
 			if($myforum->user->name !== "Anonymous") {
 				$idlink = "";
 			}
-			$html .= $theme->global_userbar($idlink, $myforum->user);
-			$html .= $theme->global_start();
+			$userbar = $theme->global_userbar($idlink, $myforum->user);
+			$html .= $theme->global_start($userbar);
 			if(isset($_SESSION['error'])) {
 				$html .= $theme->global_alert($_SESSION['error'][0],$_SESSION['error'][1]);
 				unset($_SESSION['error']);
