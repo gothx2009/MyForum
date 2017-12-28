@@ -20,7 +20,7 @@
 			$idlink = $theme->global_userbar_idlink();
 			$login = $theme->global_userbar_loginlink();
 			$reglink = $theme->global_userbar_reglink();
-			if($myforum->user->name !== "Anonymous") {
+			if($myforum->user->login_type !== "Anonymous") {
 				$idlink = "";
 			}
 			$userbar = $theme->global_userbar($idlink,$login,$reglink,$myforum->user);
