@@ -1,11 +1,9 @@
 <?php
 	class Template {
-		/* Global Bits */
-		function global_before_end() {
+		function css_extra() {
 			return "";
 		}
-		
-		function css_extra() {
+		function global_before_end() {
 			return "";
 		}
 		function global_alert($class,$msg) {
@@ -63,6 +61,18 @@
 		}
 		function global_userbar_reglink() {
 			return "<a href='./index.php?act=reg' class='link'>Register</a>";
+		}
+		function index_pinned_start() {
+			return "<tr><th colspan='2'>Pinned Topics:</th></tr>";
+		}
+		function index_pinned_end() {
+			return "<tr><th colspan='2'>Topics:</th></tr>";
+		}
+		function index_row_locked($link, $author) {
+			return "<tr class='locked'><td><strong>LOCKED: </strong>{$link}</td><td class='ava'>{$author->avatar}</td></tr>";
+		}
+		function index_row($link, $author) {
+			return "<tr><td><strong>LOCKED: </strong>{$link}</td><td class='ava'>{$author->avatar}</td></tr>";
 		}
 		function js_extra() {
 			return "";
