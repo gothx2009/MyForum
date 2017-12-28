@@ -68,10 +68,10 @@
 		function index_pinned_end() {
 			return "<tr><th colspan='2'>Topics:</th></tr>";
 		}
-		function index_row_locked($link, $author) {
+		function index_row_locked($pin, $link, $author) {
 			return "<tr class='locked'><td><strong>LOCKED: </strong>{$link}</td><td class='ava'>{$author->avatar}</td></tr>";
 		}
-		function index_row($link, $author) {
+		function index_row($pin, $link, $author) {
 			return "<tr><td><strong>LOCKED: </strong>{$link}</td><td class='ava'>{$author->avatar}</td></tr>";
 		}
 		function js_extra() {
