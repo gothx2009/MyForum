@@ -36,13 +36,16 @@
 		function global_form_hidden($name,$value) {
 			return "<input type='hidden' name='{$name}' value='{$value}'>";
 		}
+		function global_form_password($label,$name,$default=null,$extra=null) {
+			return "<tr><td>{$label}:</td><td><input type='text' name='{$name}' value='{$default}'></td></tr>";
+		}
 		function global_form_start($action,$method,$title) {
 			return "<form method='{$method}' action='{$action}'><div class='category'><div class='maintitle'>{$title}</div><table>";
 		}
-		function global_form_text($label,$name,$default=null) {
+		function global_form_text($label,$name,$default=null,$extra=null) {
 			return "<tr><td>{$label}:</td><td><input type='text' name='{$name}' value='{$default}'></td></tr>";
 		}
-		function global_form_textarea($label,$name) {
+		function global_form_textarea($label,$name,$extra=null) {
 			return "<tr><td>{$label}</td><td><textarea name='{$name}'></textarea></td></tr>";
 		}
 		function global_start($userbar,$crumbs) {

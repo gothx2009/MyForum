@@ -44,7 +44,7 @@
 				if($this->ptitle == "Topic") {
 					$html .= $theme->global_form_text("Topic Title", "ttitle");
 				}
-				$html .= $theme->global_form_textarea("Post Content", "pcontent");
+				$html .= $theme->global_form_textarea("Post Content", "pcontent", "(BBCode Enabled)");
 				$html .= $theme->global_form_end();
 			}
 			$version = false;
