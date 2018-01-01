@@ -15,24 +15,21 @@
 			$html .= "<title>". $config->site_name ."</title>";
 			$html .= $css;
 			$html .= $theme->css_extra();
-			$html .= $theme->js_extra();
 			$html .= "</head><body>";
-			$idlink = $theme->global_userbar_idlink();
-			$login = $theme->global_userbar_loginlink();
-			$reglink = $theme->global_userbar_reglink();
-			if($myforum->user->login_type !== "Anonymous") {
+			$idlink = "<a href='./index.php?act=id' class='link'>Identify</a>";
+			if($myforum->user->name !== "Anonymous") {
 				$idlink = "";
 			}
-			$userbar = $theme->global_userbar($idlink,$login,$reglink,$myforum->user);
-			$crumbs = $theme->global_bread_start();
-			$crumbs .= $theme->global_bread_sep();
-			$crumbs .= implode($theme->global_bread_sep(), $this->crumbs);
-			$crumbs .= $theme->global_bread_end();
-			$html .= $theme->global_start($userbar,$crumbs);
+			$html .= $theme->global_userbar($idlink, $myforum->user);
+			$html .= $theme->global_start();
 			if(isset($_SESSION['error'])) {
 				$html .= $theme->global_alert($_SESSION['error'][0],$_SESSION['error'][1]);
 				unset($_SESSION['error']);
 			}
+			$html .= $theme->global_bread_start();
+			$html .= $theme->global_bread_sep();
+			$html .= implode($theme->global_bread_sep(), $this->crumbs);
+			$html .= $theme->global_bread_end();
 			$html .= $this->to_output;
 			if($this->show_form) {
 				$tid = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -44,7 +41,7 @@
 				if($this->ptitle == "Topic") {
 					$html .= $theme->global_form_text("Topic Title", "ttitle");
 				}
-				$html .= $theme->global_form_textarea("Post Content", "pcontent", "(BBCode Enabled)");
+				$html .= $theme->global_form_textarea("Post Content", "pcontent");
 				$html .= $theme->global_form_end();
 			}
 			$version = false;
@@ -52,8 +49,8 @@
 				$version = " (v".$myforum->version.")";
 			}
 			$copyright = "<div id='copyright'>Powered by <a href='http://mlutz.us'>MyForum</a>{$version}</div>";
-			$before_end = $theme->global_before_end();
-			$html .= $theme->global_end($copyright, $before_end);
+			$html .= $copyright;	
+			$html .= $theme->global_end();
 			exit($html);
 		}
 	}

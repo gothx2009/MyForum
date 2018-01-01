@@ -36,10 +36,10 @@
 						$lock = "<a href='./index.php?act=pin&c=5&i=". $this->id ."'>Lock</a>";
 						$delete = "<a href='./index.php?act=pin&c=2&i=".$row->i."'>Delete Topic</a>";
 					}
-					if($this->first && $this->topic->pinned) {
+					if($this->topic->pinned) {
 						$pin = "<a href='./index.php?act=pin&c=4&i=". $this->id ."'>Unpin</a>";
 					}
-					if($this->first && $this->topic->locked) {
+					if($this->topic->locked) {
 						$lock = "<a href='./index.php?act=pin&c=6&i=". $this->id ."'>Unlock</a>";
 					}
 					$row->avatar = $myforum->gravatar($row->aemail,80,"mm","g",true,array());

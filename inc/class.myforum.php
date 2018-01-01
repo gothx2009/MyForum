@@ -1,20 +1,12 @@
 <?php
 	class MyForum {
 		var $user;
-		var $version = "0.9-dev";
+		var $version = "0.8.1";
 		function __construct() {
 			$u = new stdclass;
-			if(isset($_SESSION['aname']) && isset($_SESSION['aemail'])) {
-				$u->name = $_SESSION['aname'];
-				$u->email = $_SESSION['aemail'];
-				$u->avatar = $this->gravatar($u->email,100,'mm','g',true,array("class"=>"userbar_avatar"));
-				$u->login_type = "Session ID";
-			} else {
-				$u->name = "Guest";
-				$u->email = "anonymous@user.tld";
-				$u->avatar = $this->gravatar($u->email,100,'mm','g',true,array("class"=>"userbar_avatar"));
-				$u->login_type = "Anonymous";
-			}
+			$u->name = isset($_SESSION['aname']) ? $_SESSION['aname'] : "Anonymous";
+			$u->email = isset($_SESSION['aemail']) ? $_SESSION['aemail'] : "anonymous@user.tld";
+			$u->avatar = $this->gravatar($u->email,100,'mm','g',true,array("class"=>"userbar_avatar"));
 			$this->user = $u;
 		}
 		function gravatar($email,$s=80,$d="mm",$r="g",$img=false,$atts=array()) {

@@ -25,7 +25,6 @@
 		"idx"	=> "idx",
 		"pin"	=> "pin",
 		"post"	=> "post",
-		"reg"	=> "register",
 		"ST"	=> "topic",
 	);
 	if(!array_key_exists($act,$choices)) {
