@@ -1,7 +1,7 @@
 <?php
 	class MyForum {
 		var $user;
-		var $version = "0.8.1";
+		var $version = "0.8.2";
 		function __construct() {
 			$u = new stdclass;
 			$u->name = isset($_SESSION['aname']) ? $_SESSION['aname'] : "Anonymous";
