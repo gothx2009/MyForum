@@ -1,7 +1,7 @@
 <?php
 	class Pin {
 		function __construct() {
-			global $display, $board;
+			global $display, $config;
 			$display->show_post_form = false;
 			if($_SERVER['REQUEST_METHOD'] == "POST") {
 				$code = isset($_POST['code']) ? intval($_POST['code']) : false;
@@ -10,7 +10,7 @@
 				if(!$pin) {
 					$_SESSION['error'] = array("error", "You must enter a pin.");
 					$this->show_pin_form();
-				} if($pin !== $board['admin_pin']) {
+				} if($pin !== $config->admin_pin) {
 					$_SESSION['error'] = array("error", "Invalid PIN");
 					$this->show_pin_form();
 				} else {
