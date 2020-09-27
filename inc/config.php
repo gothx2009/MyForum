@@ -7,6 +7,7 @@
 	$config->site_name		= "MyForum";
 	$config->theme			= "default";
 	$config->post_per_page	= 15;
+	$config->idx_tpp = 25;
 	$sql = array();
   
 	$sql['hostname'] = "localhost";

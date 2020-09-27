@@ -1,7 +1,8 @@
 <?php
 	class MyForum {
+    var $choices = array("id"=>"Identify","idx"=>"BoardIndex","pin"=>"Pin","post"=>"Post","ST"=>"ShowTopic");
 		var $user;
-		var $version = "0.8.2";
+		var $version = "1.0.beta";
 		function __construct() {
 			$u = new stdclass;
 			$u->name = isset($_SESSION['aname']) ? $_SESSION['aname'] : "Anonymous";
