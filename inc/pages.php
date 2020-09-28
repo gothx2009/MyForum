@@ -145,19 +145,20 @@
 			}
 		}
 		function delete_post($id) {
-			global $db, $display;
+			global $db, $display, $myforum;
 			$sql = "DELETE FROM p WHERE i='". $id ."'";
 			if($result = $db->query($sql)) {
-				$display->crumbs[] = "Post Deleted";
 				$_SESSION['error'] = array("success", "Your post has been deleted.");
+        $myforum->redirect("index.php");
 			}
 		}
 		function delete_topic($id) {
-			global $db, $display;
+			global $db, $display, $myforum;
 			$db->query("DELETE FROM p WHERE parent='". $id ."'");
 			$db->query("DELETE FROM t WHERE i='". $id ."'");
 			$display->crumbs[] = "Topic Deleted.";
 			$_SESSION['error'] = array("success", "The topic has been deleted.");
+        $myforum->redirect("index.php");
 		}
 		function lock_topic($id) {
 			global $db, $myforum;
@@ -264,7 +265,7 @@
 					if($this->first) {
 						$pin = "<a href='./index.php?act=pin&c=3&i=". $this->id ."'>Pin</a>";
 						$lock = "<a href='./index.php?act=pin&c=5&i=". $this->id ."'>Lock</a>";
-						$delete = "<a href='./index.php?act=pin&c=2&i=".$row->i."'>Delete Topic</a>";
+						$delete = "<a href='./index.php?act=pin&c=2&i=".$this->id."'>Delete Topic</a>";
 					}
 					if($this->topic->pinned) {
 						$pin = "<a href='./index.php?act=pin&c=4&i=". $this->id ."'>Unpin</a>";
