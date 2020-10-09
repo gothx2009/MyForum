@@ -6,21 +6,11 @@
 	include("inc/class.template.php");
 	include("inc/class.myforum.php");
   include("inc/pages.php");
-  include("inc/class.hooks.php");
 	session_start();
 	$db = new mysqli($sql['hostname'],$sql['username'],$sql['password'],$sql['database']);
 	$display = new Display;
 	$myforum = new MyForum;
-  $hooks = new Hooks;
 
-  /* Load all plugins */
-  if($handle = opendir("./hooks/")) {
-    while(false !== ($file = readdir($handle))) {
-      if('.' === $file) continue;
-      if('..' === $file) continue;
-    }
-    closedir($handle);
-  }
 
 	if(file_exists("themes/". $config->theme .".php")) {
 		include("themes/". $config->theme .".php");
